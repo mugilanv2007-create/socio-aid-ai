@@ -195,15 +195,21 @@ function MemberCard({
                       Send OTP
                     </Button>
                   ) : (
-                    <div className="flex gap-2">
-                      <Input
-                        placeholder="Enter OTP (123456)"
-                        value={otpValue}
-                        onChange={(e) => onOtpChange(e.target.value)}
-                        maxLength={6}
-                        className="text-center tracking-wider"
-                      />
-                      <Button size="sm" onClick={onVerifyOtp}>Verify</Button>
+                    <div className="space-y-2">
+                      <div className="flex gap-2">
+                        <Input
+                          placeholder="Enter OTP"
+                          value={otpValue}
+                          onChange={(e) => onOtpChange(e.target.value)}
+                          maxLength={6}
+                          className="text-center tracking-wider"
+                        />
+                        <Button size="sm" onClick={onVerifyOtp}>Verify</Button>
+                      </div>
+                      <div className="p-2 bg-accent/10 border border-accent/20 rounded-md text-center">
+                        <p className="text-xs text-muted-foreground">Generated OTP</p>
+                        <p className="text-sm font-bold tracking-widest text-accent font-mono">{generatedOtp}</p>
+                      </div>
                     </div>
                   )}
                 </div>
