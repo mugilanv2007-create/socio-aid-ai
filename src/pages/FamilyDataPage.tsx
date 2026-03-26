@@ -61,6 +61,11 @@ export default function FamilyDataPage({ onComplete }: Props) {
     const newOtp = generateOtp();
     setGeneratedOtps(prev => ({ ...prev, [memberId]: newOtp }));
     setOtpSent(prev => ({ ...prev, [memberId]: true }));
+    const member = rationCard.members.find(m => m.id === memberId);
+    toast.success(`OTP Sent for ${member?.name || 'member'}`, {
+      description: `Your OTP is: ${newOtp}`,
+      duration: 15000,
+    });
   };
 
   const handleVerifyOtp = (memberId: string) => {
