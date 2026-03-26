@@ -4,7 +4,9 @@ import { Shield, CreditCard, Phone, ArrowRight, CheckCircle } from 'lucide-react
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAppContext } from '@/context/AppContext';
-import { rationCardDatabase, otpDatabase } from '@/data/rationCardData';
+import { rationCardDatabase } from '@/data/rationCardData';
+
+const generateOtp = () => String(Math.floor(100000 + Math.random() * 900000));
 
 type Step = 'ration' | 'otp' | 'verified';
 
@@ -15,6 +17,7 @@ export default function LoginPage() {
   const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
   const [mobileHint, setMobileHint] = useState('');
+  const [generatedOtp, setGeneratedOtp] = useState('');
 
   const handleRationSubmit = () => {
     setError('');
@@ -25,6 +28,8 @@ export default function LoginPage() {
     }
     const mobile = card.mobileNumber;
     setMobileHint(`${mobile.slice(0, 2)}****${mobile.slice(-4)}`);
+    const newOtp = generateOtp();
+    setGeneratedOtp(newOtp);
     setStep('otp');
   };
 
@@ -32,9 +37,8 @@ export default function LoginPage() {
     setError('');
     const card = rationCardDatabase[rationNumber.trim()];
     if (!card) return;
-    const correctOtp = otpDatabase[card.mobileNumber];
-    if (otp !== correctOtp) {
-      setError('Invalid OTP. Use 123456 for simulation.');
+    if (otp !== generatedOtp) {
+      setError('Invalid OTP. Please enter the OTP shown below.');
       return;
     }
     setStep('verified');
@@ -126,9 +130,10 @@ export default function LoginPage() {
               <Button onClick={handleOtpSubmit} className="w-full gradient-primary text-primary-foreground">
                 Verify OTP <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
-              <p className="text-xs text-muted-foreground mt-3 text-center">
-                Use OTP: 123456
-              </p>
+              <div className="mt-3 p-3 bg-accent/10 border border-accent/20 rounded-lg text-center">
+                <p className="text-xs text-muted-foreground mb-1">Generated OTP (sent to {mobileHint})</p>
+                <p className="text-lg font-bold tracking-widest text-accent font-mono">{generatedOtp}</p>
+              </div>
             </motion.div>
           )}
 

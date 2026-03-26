@@ -50,16 +50,21 @@ export default function FamilyDataPage({ onComplete }: Props) {
   const [expandedMember, setExpandedMember] = useState<string | null>(null);
   const [otpInputs, setOtpInputs] = useState<Record<string, string>>({});
   const [otpSent, setOtpSent] = useState<Record<string, boolean>>({});
+  const [generatedOtps, setGeneratedOtps] = useState<Record<string, string>>({});
 
   if (!rationCard) return null;
 
+  const generateOtp = () => String(Math.floor(100000 + Math.random() * 900000));
+
   const handleSendOtp = (memberId: string) => {
+    const newOtp = generateOtp();
+    setGeneratedOtps(prev => ({ ...prev, [memberId]: newOtp }));
     setOtpSent(prev => ({ ...prev, [memberId]: true }));
   };
 
   const handleVerifyOtp = (memberId: string) => {
     const otp = otpInputs[memberId];
-    if (otp === '123456') {
+    if (otp === generatedOtps[memberId]) {
       verifyMemberAadhaar(memberId);
     }
   };
@@ -85,7 +90,7 @@ export default function FamilyDataPage({ onComplete }: Props) {
 
       <div className="max-w-2xl mx-auto p-4 space-y-3">
         <p className="text-sm text-muted-foreground mb-2">
-          Verify Aadhaar for each member and update their details. Use OTP: 123456
+          Verify Aadhaar for each member and update their details.
         </p>
 
         {rationCard.members.map((member, index) => (
@@ -97,6 +102,7 @@ export default function FamilyDataPage({ onComplete }: Props) {
             onToggle={() => setExpandedMember(prev => prev === member.id ? null : member.id)}
             otpSent={!!otpSent[member.id]}
             otpValue={otpInputs[member.id] || ''}
+            generatedOtp={generatedOtps[member.id] || ''}
             onOtpChange={(val) => setOtpInputs(prev => ({ ...prev, [member.id]: val }))}
             onSendOtp={() => handleSendOtp(member.id)}
             onVerifyOtp={() => handleVerifyOtp(member.id)}
@@ -123,7 +129,7 @@ export default function FamilyDataPage({ onComplete }: Props) {
 }
 
 function MemberCard({
-  member, index, expanded, onToggle, otpSent, otpValue,
+  member, index, expanded, onToggle, otpSent, otpValue, generatedOtp,
   onOtpChange, onSendOtp, onVerifyOtp, onUpdateMember,
 }: {
   member: FamilyMember;
@@ -132,6 +138,7 @@ function MemberCard({
   onToggle: () => void;
   otpSent: boolean;
   otpValue: string;
+  generatedOtp: string;
   onOtpChange: (v: string) => void;
   onSendOtp: () => void;
   onVerifyOtp: () => void;
@@ -188,15 +195,21 @@ function MemberCard({
                       Send OTP
                     </Button>
                   ) : (
-                    <div className="flex gap-2">
-                      <Input
-                        placeholder="Enter OTP (123456)"
-                        value={otpValue}
-                        onChange={(e) => onOtpChange(e.target.value)}
-                        maxLength={6}
-                        className="text-center tracking-wider"
-                      />
-                      <Button size="sm" onClick={onVerifyOtp}>Verify</Button>
+                    <div className="space-y-2">
+                      <div className="flex gap-2">
+                        <Input
+                          placeholder="Enter OTP"
+                          value={otpValue}
+                          onChange={(e) => onOtpChange(e.target.value)}
+                          maxLength={6}
+                          className="text-center tracking-wider"
+                        />
+                        <Button size="sm" onClick={onVerifyOtp}>Verify</Button>
+                      </div>
+                      <div className="p-2 bg-accent/10 border border-accent/20 rounded-md text-center">
+                        <p className="text-xs text-muted-foreground">Generated OTP</p>
+                        <p className="text-sm font-bold tracking-widest text-accent font-mono">{generatedOtp}</p>
+                      </div>
                     </div>
                   )}
                 </div>
