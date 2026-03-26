@@ -129,7 +129,7 @@ export default function FamilyDataPage({ onComplete }: Props) {
 }
 
 function MemberCard({
-  member, index, expanded, onToggle, otpSent, otpValue,
+  member, index, expanded, onToggle, otpSent, otpValue, generatedOtp,
   onOtpChange, onSendOtp, onVerifyOtp, onUpdateMember,
 }: {
   member: FamilyMember;
@@ -138,6 +138,7 @@ function MemberCard({
   onToggle: () => void;
   otpSent: boolean;
   otpValue: string;
+  generatedOtp: string;
   onOtpChange: (v: string) => void;
   onSendOtp: () => void;
   onVerifyOtp: () => void;
