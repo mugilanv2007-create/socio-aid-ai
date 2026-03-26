@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { useAppContext } from '@/context/AppContext';
 import { rationCardDatabase, otpDatabase } from '@/data/rationCardData';
 
+const generateOtp = () => String(Math.floor(100000 + Math.random() * 900000));
+
 type Step = 'ration' | 'otp' | 'verified';
 
 export default function LoginPage() {
@@ -15,6 +17,7 @@ export default function LoginPage() {
   const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
   const [mobileHint, setMobileHint] = useState('');
+  const [generatedOtp, setGeneratedOtp] = useState('');
 
   const handleRationSubmit = () => {
     setError('');
@@ -25,6 +28,8 @@ export default function LoginPage() {
     }
     const mobile = card.mobileNumber;
     setMobileHint(`${mobile.slice(0, 2)}****${mobile.slice(-4)}`);
+    const newOtp = generateOtp();
+    setGeneratedOtp(newOtp);
     setStep('otp');
   };
 
@@ -32,9 +37,8 @@ export default function LoginPage() {
     setError('');
     const card = rationCardDatabase[rationNumber.trim()];
     if (!card) return;
-    const correctOtp = otpDatabase[card.mobileNumber];
-    if (otp !== correctOtp) {
-      setError('Invalid OTP. Use 123456 for simulation.');
+    if (otp !== generatedOtp) {
+      setError('Invalid OTP. Please enter the OTP shown below.');
       return;
     }
     setStep('verified');

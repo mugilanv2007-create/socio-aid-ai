@@ -50,16 +50,21 @@ export default function FamilyDataPage({ onComplete }: Props) {
   const [expandedMember, setExpandedMember] = useState<string | null>(null);
   const [otpInputs, setOtpInputs] = useState<Record<string, string>>({});
   const [otpSent, setOtpSent] = useState<Record<string, boolean>>({});
+  const [generatedOtps, setGeneratedOtps] = useState<Record<string, string>>({});
 
   if (!rationCard) return null;
 
+  const generateOtp = () => String(Math.floor(100000 + Math.random() * 900000));
+
   const handleSendOtp = (memberId: string) => {
+    const newOtp = generateOtp();
+    setGeneratedOtps(prev => ({ ...prev, [memberId]: newOtp }));
     setOtpSent(prev => ({ ...prev, [memberId]: true }));
   };
 
   const handleVerifyOtp = (memberId: string) => {
     const otp = otpInputs[memberId];
-    if (otp === '123456') {
+    if (otp === generatedOtps[memberId]) {
       verifyMemberAadhaar(memberId);
     }
   };
