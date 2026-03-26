@@ -84,8 +84,8 @@ export const rationCardDatabase: Record<string, RationCard> = {
       },
     ],
   },
-  'TN-RC-2024-002': {
-    rationCardNumber: 'TN-RC-2024-002',
+  'AAY6723841056': {
+    rationCardNumber: 'AAY6723841056',
     type: 'AAY',
     headOfFamily: 'Selvam Murugan',
     address: '12, Anna Street, Trichy',
