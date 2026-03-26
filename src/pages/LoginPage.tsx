@@ -130,9 +130,10 @@ export default function LoginPage() {
               <Button onClick={handleOtpSubmit} className="w-full gradient-primary text-primary-foreground">
                 Verify OTP <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
-              <p className="text-xs text-muted-foreground mt-3 text-center">
-                Use OTP: 123456
-              </p>
+              <div className="mt-3 p-3 bg-accent/10 border border-accent/20 rounded-lg text-center">
+                <p className="text-xs text-muted-foreground mb-1">Generated OTP (sent to {mobileHint})</p>
+                <p className="text-lg font-bold tracking-widest text-accent font-mono">{generatedOtp}</p>
+              </div>
             </motion.div>
           )}
 
