@@ -139,8 +139,8 @@ export const rationCardDatabase: Record<string, RationCard> = {
       },
     ],
   },
-  'TN-RC-2024-003': {
-    rationCardNumber: 'TN-RC-2024-003',
+  'NPHH9381204567': {
+    rationCardNumber: 'NPHH9381204567',
     type: 'PHH',
     headOfFamily: 'Anitha Devi',
     address: '78, Bharathi Street, Salem',
