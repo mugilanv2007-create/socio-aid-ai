@@ -2,8 +2,8 @@ import { RationCard } from './types';
 
 // Simulated ration card database
 export const rationCardDatabase: Record<string, RationCard> = {
-  'TN-RC-2024-001': {
-    rationCardNumber: 'TN-RC-2024-001',
+  'PHH5854579879': {
+    rationCardNumber: 'PHH5854579879',
     type: 'PHH',
     headOfFamily: 'Ramesh Kumar',
     address: '45, Gandhi Nagar, Madurai',
@@ -84,8 +84,8 @@ export const rationCardDatabase: Record<string, RationCard> = {
       },
     ],
   },
-  'TN-RC-2024-002': {
-    rationCardNumber: 'TN-RC-2024-002',
+  'AAY6723841056': {
+    rationCardNumber: 'AAY6723841056',
     type: 'AAY',
     headOfFamily: 'Selvam Murugan',
     address: '12, Anna Street, Trichy',
@@ -139,8 +139,8 @@ export const rationCardDatabase: Record<string, RationCard> = {
       },
     ],
   },
-  'TN-RC-2024-003': {
-    rationCardNumber: 'TN-RC-2024-003',
+  'NPHH9381204567': {
+    rationCardNumber: 'NPHH9381204567',
     type: 'PHH',
     headOfFamily: 'Anitha Devi',
     address: '78, Bharathi Street, Salem',

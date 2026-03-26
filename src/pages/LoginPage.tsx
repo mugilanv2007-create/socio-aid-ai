@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAppContext } from '@/context/AppContext';
 import { rationCardDatabase } from '@/data/rationCardData';
+import { toast } from 'sonner';
 
 const generateOtp = () => String(Math.floor(100000 + Math.random() * 900000));
 
@@ -23,7 +24,7 @@ export default function LoginPage() {
     setError('');
     const card = rationCardDatabase[rationNumber.trim()];
     if (!card) {
-      setError('Ration card not found. Try: TN-RC-2024-001, TN-RC-2024-002, or TN-RC-2024-003');
+      setError('Ration card not found. Try: PHH5854579879, AAY6723841056, or NPHH9381204567');
       return;
     }
     const mobile = card.mobileNumber;
@@ -31,6 +32,11 @@ export default function LoginPage() {
     const newOtp = generateOtp();
     setGeneratedOtp(newOtp);
     setStep('otp');
+    // Show OTP as toast notification
+    toast.success(`OTP Sent Successfully`, {
+      description: `Your OTP is: ${newOtp}`,
+      duration: 15000,
+    });
   };
 
   const handleOtpSubmit = () => {
@@ -38,11 +44,22 @@ export default function LoginPage() {
     const card = rationCardDatabase[rationNumber.trim()];
     if (!card) return;
     if (otp !== generatedOtp) {
-      setError('Invalid OTP. Please enter the OTP shown below.');
+      setError('Invalid OTP. Check the notification for your OTP.');
       return;
     }
     setStep('verified');
     setTimeout(() => login(card), 1200);
+  };
+
+  const handleResendOtp = () => {
+    const newOtp = generateOtp();
+    setGeneratedOtp(newOtp);
+    setOtp('');
+    setError('');
+    toast.success(`New OTP Sent`, {
+      description: `Your OTP is: ${newOtp}`,
+      duration: 15000,
+    });
   };
 
   return (
@@ -95,7 +112,7 @@ export default function LoginPage() {
                 <h2 className="font-semibold text-foreground">Enter Ration Card Number</h2>
               </div>
               <Input
-                placeholder="e.g., TN-RC-2024-001"
+                placeholder="e.g., PHH5854579879"
                 value={rationNumber}
                 onChange={(e) => setRationNumber(e.target.value)}
                 className="mb-3"
@@ -104,9 +121,10 @@ export default function LoginPage() {
               <Button onClick={handleRationSubmit} className="w-full gradient-primary text-primary-foreground">
                 Verify Ration Card <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
-              <p className="text-xs text-muted-foreground mt-3 text-center">
-                Demo cards: TN-RC-2024-001, TN-RC-2024-002, TN-RC-2024-003
-              </p>
+              <div className="mt-3 text-xs text-muted-foreground text-center space-y-1">
+                <p className="font-medium">Demo cards:</p>
+                <p>PHH5854579879 • AAY6723841056 • NPHH9381204567</p>
+              </div>
             </motion.div>
           )}
 
@@ -127,13 +145,12 @@ export default function LoginPage() {
                 className="mb-3 text-center tracking-widest text-lg"
               />
               {error && <p className="text-destructive text-sm mb-3">{error}</p>}
-              <Button onClick={handleOtpSubmit} className="w-full gradient-primary text-primary-foreground">
+              <Button onClick={handleOtpSubmit} className="w-full gradient-primary text-primary-foreground mb-2">
                 Verify OTP <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
-              <div className="mt-3 p-3 bg-accent/10 border border-accent/20 rounded-lg text-center">
-                <p className="text-xs text-muted-foreground mb-1">Generated OTP (sent to {mobileHint})</p>
-                <p className="text-lg font-bold tracking-widest text-accent font-mono">{generatedOtp}</p>
-              </div>
+              <Button onClick={handleResendOtp} variant="ghost" className="w-full text-sm text-muted-foreground">
+                Resend OTP
+              </Button>
             </motion.div>
           )}
 

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, CheckCircle, Phone, ChevronDown, ChevronUp, Briefcase, Heart, GraduationCap, ArrowRight } from 'lucide-react';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -60,6 +61,11 @@ export default function FamilyDataPage({ onComplete }: Props) {
     const newOtp = generateOtp();
     setGeneratedOtps(prev => ({ ...prev, [memberId]: newOtp }));
     setOtpSent(prev => ({ ...prev, [memberId]: true }));
+    const member = rationCard.members.find(m => m.id === memberId);
+    toast.success(`OTP Sent for ${member?.name || 'member'}`, {
+      description: `Your OTP is: ${newOtp}`,
+      duration: 15000,
+    });
   };
 
   const handleVerifyOtp = (memberId: string) => {
@@ -195,21 +201,15 @@ function MemberCard({
                       Send OTP
                     </Button>
                   ) : (
-                    <div className="space-y-2">
-                      <div className="flex gap-2">
-                        <Input
-                          placeholder="Enter OTP"
-                          value={otpValue}
-                          onChange={(e) => onOtpChange(e.target.value)}
-                          maxLength={6}
-                          className="text-center tracking-wider"
-                        />
-                        <Button size="sm" onClick={onVerifyOtp}>Verify</Button>
-                      </div>
-                      <div className="p-2 bg-accent/10 border border-accent/20 rounded-md text-center">
-                        <p className="text-xs text-muted-foreground">Generated OTP</p>
-                        <p className="text-sm font-bold tracking-widest text-accent font-mono">{generatedOtp}</p>
-                      </div>
+                    <div className="flex gap-2">
+                      <Input
+                        placeholder="Enter OTP"
+                        value={otpValue}
+                        onChange={(e) => onOtpChange(e.target.value)}
+                        maxLength={6}
+                        className="text-center tracking-wider"
+                      />
+                      <Button size="sm" onClick={onVerifyOtp}>Verify</Button>
                     </div>
                   )}
                 </div>
