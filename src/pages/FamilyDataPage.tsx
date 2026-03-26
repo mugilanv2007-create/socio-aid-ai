@@ -90,7 +90,7 @@ export default function FamilyDataPage({ onComplete }: Props) {
 
       <div className="max-w-2xl mx-auto p-4 space-y-3">
         <p className="text-sm text-muted-foreground mb-2">
-          Verify Aadhaar for each member and update their details. Use OTP: 123456
+          Verify Aadhaar for each member and update their details.
         </p>
 
         {rationCard.members.map((member, index) => (
@@ -102,6 +102,7 @@ export default function FamilyDataPage({ onComplete }: Props) {
             onToggle={() => setExpandedMember(prev => prev === member.id ? null : member.id)}
             otpSent={!!otpSent[member.id]}
             otpValue={otpInputs[member.id] || ''}
+            generatedOtp={generatedOtps[member.id] || ''}
             onOtpChange={(val) => setOtpInputs(prev => ({ ...prev, [member.id]: val }))}
             onSendOtp={() => handleSendOtp(member.id)}
             onVerifyOtp={() => handleVerifyOtp(member.id)}
