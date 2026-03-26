@@ -4,7 +4,7 @@ import { Shield, CreditCard, Phone, ArrowRight, CheckCircle } from 'lucide-react
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAppContext } from '@/context/AppContext';
-import { rationCardDatabase, otpDatabase } from '@/data/rationCardData';
+import { rationCardDatabase } from '@/data/rationCardData';
 
 const generateOtp = () => String(Math.floor(100000 + Math.random() * 900000));
 
