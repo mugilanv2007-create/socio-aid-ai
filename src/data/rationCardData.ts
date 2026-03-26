@@ -2,8 +2,8 @@ import { RationCard } from './types';
 
 // Simulated ration card database
 export const rationCardDatabase: Record<string, RationCard> = {
-  'TN-RC-2024-001': {
-    rationCardNumber: 'TN-RC-2024-001',
+  'PHH5854579879': {
+    rationCardNumber: 'PHH5854579879',
     type: 'PHH',
     headOfFamily: 'Ramesh Kumar',
     address: '45, Gandhi Nagar, Madurai',
