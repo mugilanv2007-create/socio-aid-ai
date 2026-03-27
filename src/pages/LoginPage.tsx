@@ -80,10 +80,10 @@ export default function LoginPage() {
             <Shield className="w-10 h-10 text-secondary" />
           </motion.div>
           <h1 className="text-2xl font-bold text-primary-foreground font-heading">
-            AI Scheme Recommender
+            Smart Sense
           </h1>
           <p className="text-primary-foreground/70 mt-1 text-sm">
-            Right schemes for the right family
+            AI-Powered Government Scheme Recommendations
           </p>
         </div>
 
