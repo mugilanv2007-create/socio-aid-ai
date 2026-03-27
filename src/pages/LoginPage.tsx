@@ -7,7 +7,7 @@ import { useAppContext } from '@/context/AppContext';
 import { rationCardDatabase } from '@/data/rationCardData';
 import { toast } from 'sonner';
 
-const generateOtp = () => String(Math.floor(100000 + Math.random() * 900000));
+const generateOtp = () => String(Math.floor(1000 + Math.random() * 9000));
 
 type Step = 'ration' | 'otp' | 'verified';
 
