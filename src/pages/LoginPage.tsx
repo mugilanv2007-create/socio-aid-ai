@@ -141,7 +141,7 @@ export default function LoginPage() {
                 placeholder="Enter 4-digit OTP"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
-                maxLength={6}
+                maxLength={4}
                 className="mb-3 text-center tracking-widest text-lg"
               />
               {error && <p className="text-destructive text-sm mb-3">{error}</p>}
