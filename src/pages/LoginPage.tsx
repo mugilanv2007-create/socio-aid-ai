@@ -7,7 +7,7 @@ import { useAppContext } from '@/context/AppContext';
 import { rationCardDatabase } from '@/data/rationCardData';
 import { toast } from 'sonner';
 
-const generateOtp = () => String(Math.floor(100000 + Math.random() * 900000));
+const generateOtp = () => String(Math.floor(1000 + Math.random() * 9000));
 
 type Step = 'ration' | 'otp' | 'verified';
 
@@ -80,10 +80,10 @@ export default function LoginPage() {
             <Shield className="w-10 h-10 text-secondary" />
           </motion.div>
           <h1 className="text-2xl font-bold text-primary-foreground font-heading">
-            AI Scheme Recommender
+            Smart Sense
           </h1>
           <p className="text-primary-foreground/70 mt-1 text-sm">
-            Right schemes for the right family
+            AI-Powered Government Scheme Recommendations
           </p>
         </div>
 
@@ -138,10 +138,10 @@ export default function LoginPage() {
                 OTP sent to {mobileHint}
               </p>
               <Input
-                placeholder="Enter 6-digit OTP"
+                placeholder="Enter 4-digit OTP"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
-                maxLength={6}
+                maxLength={4}
                 className="mb-3 text-center tracking-widest text-lg"
               />
               {error && <p className="text-destructive text-sm mb-3">{error}</p>}

@@ -55,7 +55,7 @@ export default function FamilyDataPage({ onComplete }: Props) {
 
   if (!rationCard) return null;
 
-  const generateOtp = () => String(Math.floor(100000 + Math.random() * 900000));
+  const generateOtp = () => String(Math.floor(1000 + Math.random() * 9000));
 
   const handleSendOtp = (memberId: string) => {
     const newOtp = generateOtp();
