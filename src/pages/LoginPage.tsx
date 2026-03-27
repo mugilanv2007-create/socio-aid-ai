@@ -138,7 +138,7 @@ export default function LoginPage() {
                 OTP sent to {mobileHint}
               </p>
               <Input
-                placeholder="Enter 6-digit OTP"
+                placeholder="Enter 4-digit OTP"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
                 maxLength={6}
